@@ -2,6 +2,7 @@
 
 const vscode = require("vscode");
 const RELAY_API = require("./relayApi");
+const provideNamespaceHover = require("./relayNamespaces");
 
 const MEMBER_PATTERN =
   /\b(world(?:\.track|\.ops)?|ui|json|context|log)\.([A-Za-z_]\w*)?/g;
@@ -74,6 +75,12 @@ function provideCompletionItems(document, position) {
 }
 
 function provideHover(document, position) {
+  const namespaceHover = provideNamespaceHover(document, position);
+
+  if (namespaceHover != null) {
+    return namespaceHover;
+  }
+
   const line = document.lineAt(position.line).text;
   const member = getMemberAtPosition(line, position.character);
 
