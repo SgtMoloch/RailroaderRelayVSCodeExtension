@@ -1,0 +1,231 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Railroader Relay",
+  "scopeName": "source.railroader-relay",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#declarations"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#calls"
+    },
+    {
+      "include": "#operators"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.relay",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.relay",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [
+            {
+              "include": "#interpolation"
+            },
+            {
+              "include": "#escapes"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.relay",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "include": "#interpolation"
+            },
+            {
+              "include": "#escapes"
+            }
+          ]
+        }
+      ]
+    },
+    "escapes": {
+      "patterns": [
+        {
+          "name": "constant.character.escape.relay",
+          "match": "\\\\(?:[\\\\\"nrt0]|u\\{[0-9A-Fa-f]+\\}|.)"
+        }
+      ]
+    },
+    "interpolation": {
+      "patterns": [
+        {
+          "name": "meta.interpolation.relay",
+          "begin": "\\\\\\(",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.section.interpolation.begin.relay"
+            }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.section.interpolation.end.relay"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#comments"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#numbers"
+            },
+            {
+              "include": "#keywords"
+            },
+            {
+              "include": "#calls"
+            },
+            {
+              "include": "#operators"
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.relay",
+          "match": "(?<![\\w.])(?:\\d+\\.\\d+(?:[eE][+-]?\\d+)?|\\d+[eE][+-]?\\d+)(?!\\w)"
+        },
+        {
+          "name": "constant.numeric.integer.relay",
+          "match": "(?<![\\w.])\\d+(?!\\w)"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.declaration.relay",
+          "match": "\\b(?:let|var|func|class|enum|export|static)\\b"
+        },
+        {
+          "name": "keyword.control.relay",
+          "match": "\\b(?:if|else|while|for|in|switch|case|default|break|continue|return|yield|try|catch|finally|throw)\\b"
+        },
+        {
+          "name": "keyword.control.import.relay",
+          "match": "\\b(?:import|from|as|is)\\b"
+        },
+        {
+          "name": "constant.language.relay",
+          "match": "\\b(?:true|false|null|self|super)\\b"
+        },
+        {
+          "name": "support.type.relay",
+          "match": "\\b(?:String|Integer|Float|Bool|Array|Dictionary|Closure|Vector3)\\b"
+        },
+        {
+          "name": "support.function.builtin.relay",
+          "match": "\\b(?:print|assert|pcall|Coroutine)\\b(?=\\s*\\()"
+        },
+        {
+          "name": "support.module.relay",
+          "match": "\\b(?:railroader|math|log|json|world|ui)\\b"
+        }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "name": "meta.function.declaration.relay",
+          "match": "\\b(func)\\s+([a-zA-Z_]\\w*)\\s*(?=\\()",
+          "captures": {
+            "1": {
+              "name": "keyword.declaration.function.relay"
+            },
+            "2": {
+              "name": "entity.name.function.relay"
+            }
+          }
+        },
+        {
+          "name": "meta.type.declaration.relay",
+          "match": "\\b(class|enum)\\s+([a-zA-Z_]\\w*)",
+          "captures": {
+            "1": {
+              "name": "keyword.declaration.type.relay"
+            },
+            "2": {
+              "name": "entity.name.type.relay"
+            }
+          }
+        },
+        {
+          "name": "meta.variable.declaration.relay",
+          "match": "\\b(var|let)\\s+([a-zA-Z_]\\w*)",
+          "captures": {
+            "1": {
+              "name": "keyword.declaration.variable.relay"
+            },
+            "2": {
+              "name": "variable.other.definition.relay"
+            }
+          }
+        }
+      ]
+    },
+    "calls": {
+      "patterns": [
+        {
+          "name": "entity.name.function.call.relay",
+          "match": "(?<![\\w])(?:[A-Za-z_]\\w*)(?=\\s*\\()"
+        },
+        {
+          "name": "variable.other.property.relay",
+          "match": "(?<=\\.)[a-zA-Z_]\\w*"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.range.relay",
+          "match": "\\.\\.<|\\.\\.\\."
+        },
+        {
+          "name": "keyword.operator.arrow.relay",
+          "match": "=>"
+        },
+        {
+          "name": "keyword.operator.null.relay",
+          "match": "\\?\\?|\\?\\.|\\?\\["
+        },
+        {
+          "name": "keyword.operator.relay",
+          "match": "(?:==|!=|<=|>=|&&|\\|\\||\\+=|-=|\\*=|/=|[+*/%<>=!?:-])"
+        }
+      ]
+    }
+  }
+}

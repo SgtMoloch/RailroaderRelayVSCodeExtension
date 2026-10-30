@@ -1,0 +1,103 @@
+{
+  "Main.rl entrypoint": {
+    "prefix": "rlmain",
+    "description": "Railroader Main.rl world-load and world-unload handlers",
+    "body": [
+      "from railroader import world, ui",
+      "",
+      "func onWorldLoad(ctx) {",
+      "    $0",
+      "}",
+      "",
+      "func onWorldUnload(ctx) {",
+      "    ",
+      "}"
+    ]
+  },
+  "Data.rl definitions": {
+    "prefix": "rldata",
+    "description": "Railroader Data.rl definition mutation handler",
+    "body": [
+      "func modifyDefinitions(context) {",
+      "    context.modify(\"${1:rr/boxcar-40ft}\", (obj) => {",
+      "        $0",
+      "    })",
+      "}"
+    ]
+  },
+  "Command registration": {
+    "prefix": "rlcommand",
+    "description": "Register a slash command in onWorldLoad",
+    "body": [
+      "ui.registerCommand(\"/${1:command}\", \"${2:Description}\", (args) => {",
+      "    $0",
+      "})"
+    ]
+  },
+  "Function": {
+    "prefix": "func",
+    "body": ["func ${1:name}(${2:args}) {", "    $0", "}"]
+  },
+  "If": {
+    "prefix": "if",
+    "body": ["if ${1:condition} {", "    $0", "}"]
+  },
+  "If/else": {
+    "prefix": "ifelse",
+    "body": ["if ${1:condition} {", "    $2", "} else {", "    $0", "}"]
+  },
+  "For each": {
+    "prefix": "for",
+    "body": ["for ${1:item} in ${2:items} {", "    $0", "}"]
+  },
+  "For index range": {
+    "prefix": "fori",
+    "body": ["for ${1:i} in 0..<${2:count} {", "    $0", "}"]
+  },
+  "Try/catch": {
+    "prefix": "try",
+    "body": ["try {", "    $1", "} catch ${2:error} {", "    $0", "}"]
+  },
+  "Closure (block)": {
+    "prefix": "closure",
+    "body": ["(${1:value}) => {", "    $0", "}"]
+  },
+  "Import game API": {
+    "prefix": "rlimport",
+    "body": ["from railroader import ${1:world}, ${2:ui}"]
+  },
+  "Host check": {
+    "prefix": "rlhost",
+    "body": ["if !world.isHost {", "    return $0", "}"]
+  },
+  "JSON array load": {
+    "prefix": "rljsonarray",
+    "description": "Load an array from an asset pack JSON file, with runtime type assertion",
+    "body": [
+      "import json",
+      "var ${1:entries} = json.load(\"${2:Definitions.json}\")",
+      "assert(${1:entries} is Array, \"Expected an array\")",
+      "$0"
+    ]
+  },
+  "Switch": {
+    "prefix": "switch",
+    "body": [
+      "switch ${1:value} {",
+      "case ${2:pattern}:",
+      "    $3",
+      "default:",
+      "    $0",
+      "}"
+    ]
+  },
+  "String interpolation": {
+    "prefix": "rli",
+    "description": "Relay string interpolation",
+    "body": ["\\(${1:variable})$0"]
+  },
+  "Log information": {
+    "prefix": "rllog",
+    "body": ["log.info(\"${1:message}\")$0"]
+  }
+}

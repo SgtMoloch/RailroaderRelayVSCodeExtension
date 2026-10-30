@@ -1,0 +1,59 @@
+{
+  "name": "railroader-relay",
+  "displayName": "Railroader Relay (Unofficial)",
+  "description": "Syntax highlighting, snippets and documented Railroader API completions for .rl scripts.",
+  "version": "0.1.0",
+  "publisher": "sgtmoloch",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SgtMoloch/RailroaderRelayVSCodeExtension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SgtMoloch/RailroaderRelayVSCodeExtension/issues"
+  },
+  "homepage": "https://github.com/SgtMoloch/RailroaderRelayVSCodeExtension#readme",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "Railroader",
+    "Relay",
+    "game modding",
+    "scripting",
+    "RL"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "railroader-relay",
+        "aliases": [
+          "Railroader Relay",
+          "Relay (Railroader)"
+        ],
+        "extensions": [
+          ".rl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "railroader-relay",
+        "scopeName": "source.railroader-relay",
+        "path": "./syntaxes/relay.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "railroader-relay",
+        "path": "./snippets/relay.code-snippets"
+      }
+    ]
+  }
+}
