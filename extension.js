@@ -126,7 +126,12 @@ function activate(context) {
     provideHover,
   });
 
-  context.subscriptions.push(completions, hovers);
+  const formatter = vscode.languages.registerDocumentFormattingEditProvider(
+    language,
+    require("./relayFormatter")
+  );
+
+  context.subscriptions.push(completions, hovers, formatter);
 }
 
 function deactivate() {}
