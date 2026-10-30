@@ -150,7 +150,7 @@
           "match": "\\b(?:print|assert|pcall|Coroutine)\\b(?=\\s*\\()"
         },
         {
-          "name": "support.module.relay",
+          "name": "entity.name.namespace.relay",
           "match": "\\b(?:railroader|math|log|json|world|ui)\\b"
         }
       ]
